@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    
+    <title>Document</title>
+
+    <title>Hard Rock Solution - Song Lyric App</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="search-bar col-md-6 mx-auto">
+        <h1 class="text-center">Lyrics Search</h1>
+        <div class="search-box my-5">
+            <input type="text" id="search"    class="form-control" placeholder="Enter your artist song name">
+            <!--Songs Search button  -->
+            <button id="searchButton"   class="btn btn-success search-btn">Search</button>
+        </div>
+    </div>
+
+      <!-- === Simple results === -->
+      <div class="d-flex justify-content-center">
+            <div id="result" class="container">
+                <!-- get lyrics button -->
+                <div>
+                   <p id="injected"></p>
+                </div>
+                            
+                
+            </div>
+        </div>
+   
+
+
+
+<script>
+
+
+// below are all from previous
+
+const search = document.getElementById("search");
+const result = document.getElementById("result");
+const urlApi = 'https://api.lyrics.ovh';
+
+
+const searchBtn = document.getElementById("searchButton");
+searchBtn.addEventListener("click", function(){
+
+        const searchTerm = search.value;
+        searchSongs(searchTerm);
+  })
+
+function searchSongs(term){
+    fetch(`${urlApi}/suggest/${term}`)
+    // fetch(`${urlApi}/${artistName}/${songTitle}`)
+    .then(res=> res.json())
+    .then(result => {
+        // data = data.slice(0, 9);
+        console.log(result.data)
+        const html= result.data.map(songName => {
+            return `<p class="paragraph" > Song Title: ${songName.title} <button  class="btn btn-success btn" onclick="getLyricsDetail(id)" > Details </button></p>`
+            }).join();
+        // console.log(html.slice(0, 9));
+        document.querySelector('#injected').insertAdjacentHTML('afterbegin',html);})
+     
+    }
+
+    function getLyricsDetail(artistName, songTitle ){
+        // Problem here
+        fetch(`${urlApi}/v1/${artistName}/${songTitle}`)
+        .then(res =>res.json())
+        .then (data=>{
+            console.log(data)
+        } )
+    }
+
+   
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
