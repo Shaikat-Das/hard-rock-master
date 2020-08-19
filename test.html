@@ -70,7 +70,7 @@ function searchSongs(term){
         const html= result.data.slice(0, 10).map(songName => {
             return `<p class="paragraph" > Song Title: ${songName.title} 
             <button id="getDetail" class="btn btn-success btn" 
-            onclick="getLyricsDetail(songName.id, title.id)" > Details </button></p>`
+            onclick="getLyricsDetail(artist, title)" > Details </button></p>`
             }).join();
         // console.log(html.slice(0, 9));
         document.querySelector('#injected').insertAdjacentHTML('afterbegin',html);})
