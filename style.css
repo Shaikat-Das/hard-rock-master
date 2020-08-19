@@ -48,6 +48,6 @@ body{
 
 }
 .btn{
-    margin-left:550px; 
+    margin-left:50%; 
     justify-items: flex-end;
 }
